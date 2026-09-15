@@ -1,5 +1,10 @@
 import { getImagesByQuery } from './js/pixabay-api';
-import renderFunctions from './js/render-functions';
+import {
+  createGallery,
+  clearGallery,
+  showLoader,
+  hideLoader,
+} from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -9,17 +14,27 @@ const searchField = document.querySelector('input.search-form-input');
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
-  renderFunctions.clearGallery();
-  renderFunctions.showLoader();
-  const images = await getImagesByQuery(searchField.value);
-  renderFunctions.hideLoader();
-  if (images.length === 0) {
-    iziToast.error({
-      position: 'topRight',
-      message:
-        'Sorry, there are no images matching your search query. Please try again!',
-    });
-  } else {
-    renderFunctions.createGallery(images);
+  const query = searchField.value.trim();
+  if (!query) {
+    return;
+  }
+
+  clearGallery();
+  showLoader();
+  try {
+    const images = await getImagesByQuery(query);
+    if (images.length === 0) {
+      iziToast.error({
+        position: 'topRight',
+        message:
+          'Sorry, there are no images matching your search query. Please try again!',
+      });
+    } else {
+      createGallery(images);
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    hideLoader();
   }
 });
