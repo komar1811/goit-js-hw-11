@@ -36,7 +36,8 @@ form.addEventListener('submit', async event => {
     console.log(error);
     iziToast.error({
       position: 'topRight',
-      message: 'Something went wrong. Please try again later.',
+      message:
+        'Sorry, there are no images matching your search query. Please try again!',
     });
   } finally {
     hideLoader();
