@@ -18,7 +18,7 @@
 @import url('./footer.css');
 
 /* Search form */
-.search-form {
+.form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,6 +172,10 @@
   font-size: 14px;
   font-weight: 400;
   color: #242424;
+}
+
+.is-hidden {
+  display: none;
 }
 
 .loader {

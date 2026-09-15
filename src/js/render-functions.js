@@ -2,6 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
 
 function createGallery(images) {
   const galleryContent = [];
@@ -22,12 +23,11 @@ function clearGallery() {
 }
 
 function showLoader() {
-  gallery.insertAdjacentHTML('beforebegin', '<div class="loader"></div>');
+  loader.classList.remove('is-hidden');
 }
 
 function hideLoader() {
-  const loader = document.querySelector('.loader');
-  loader.remove();
+  loader.classList.add('is-hidden');
 }
 
 export default { createGallery, clearGallery, showLoader, hideLoader };
